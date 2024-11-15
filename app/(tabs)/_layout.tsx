@@ -7,24 +7,29 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { useTheme } from '@react-navigation/native';
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { colors } = useTheme(); // Get current theme colors
+
 
   return (
+
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
+
+        headerStyle: { backgroundColor: colors.background }, // Apply theme colors
+        headerTintColor: colors.text,
+        tabBarStyle: { backgroundColor: colors.card }, // Tab bar background
+        tabBarActiveTintColor: colors.primary, // Active tab color
+        tabBarInactiveTintColor: colors.text, // Inactive tab color
+
       }}>
       <Tabs.Screen
         name="index"
